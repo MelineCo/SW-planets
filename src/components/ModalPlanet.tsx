@@ -33,6 +33,7 @@ const ModalPlanet: FC = () => {
                 marginLeft="auto"
             >
                 <Button
+                    data-testid="close-button"
                     variant={'outlined'}
                     color="info"
                     onClick={() => navigate(-1)}
@@ -102,7 +103,7 @@ const ModalPlanet: FC = () => {
             {isPending && !error && <ModalPlanetSkeleton />}
 
             {!isPending && error && (
-                <Box data-testid="tickets-error">
+                <Box data-testid="planets-error">
                     <Alert severity="error">
                         {error.message}
                     </Alert>

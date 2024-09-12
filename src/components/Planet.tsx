@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 
 import { Planet as PlanetType } from '../types/planets';
@@ -14,7 +14,15 @@ const Planet: React.FC<PlanetProps> = ({ planet, children }) => {
 
     return (
         <Link to={`/planets/${planetId}`}>
-            <Card sx={{ minWidth: 275, height: 150 }}>
+            <Card sx={{
+                minWidth: 275, 
+                height: 300,
+             }}>
+                <CardMedia
+                    sx={{ height: 190 }}
+                    image={planet.picture}
+                    title={planet.name}
+                />
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Planet: {planet.name}

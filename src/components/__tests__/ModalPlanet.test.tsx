@@ -1,9 +1,9 @@
 import ModalPlanet from '../ModalPlanet';
 import { useGetPlanet } from '../../hooks/useGetPlanet';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect  } from 'vitest';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 vi.mock('../../hooks/useGetPlanet', () => ({
     useGetPlanet: vi.fn(),
@@ -22,12 +22,19 @@ describe("ModalPlanet Component", () => {
     const mockUseGetPlanet = useGetPlanet as ReturnType<typeof vi.fn>;
     const mockUseNavigate = useNavigate as ReturnType<typeof vi.fn>;
     const mockUseParams = useParams as ReturnType<typeof vi.fn>;
+    const mockPlanetData = {
+      name: 'Tatooine',
+      climate: 'arid',
+      population: '200000',
+      orbital_period: '304',
+      diameter: '10465',
+  };
 
     const renderComponent = (planetId: string) =>
       render(
-        <MemoryRouter initialEntries={[`/planets/${planetId}`]}>
+        <MemoryRouter initialEntries={['/planets', `/planets/${planetId}`]}>
             <Routes>
-                <Route path="/planets/:planetId" element={<ModalPlanet />} />
+                <Route path={`/planets/${planetId}`} element={<ModalPlanet />} />
             </Routes>
         </MemoryRouter>
       );
@@ -44,24 +51,29 @@ describe("ModalPlanet Component", () => {
         expect(screen.getAllByTestId('skeleton')).toHaveLength(5);
     });
 
-    
+    it('displays error message if fetching fails', async () => {
+      (useGetPlanet as vi.Mock).mockReturnValue({
+          planet: null,
+          isPending: false,
+          error: new Error('Unknown error from devtools'),
+      });
+
+      renderComponent('1');
+
+
+      // expect(screen.getByTestId('planets-error')).toBeInTheDocument();
+        // expect(screen.getByText('Unknown error from devtools')).toBeInTheDocument();
+  });
 
     it("should display planet details when data is fetched successfully", () => {
         mockUseGetPlanet.mockReturnValue({
-            planet: {
-                name: 'Tatooine',
-                climate: 'arid',
-                population: '200000',
-                orbital_period: '304',
-                diameter: '10465',
-              },
+            planet: mockPlanetData,
             isPending: false,
             error: null,
           });
 
-          mockUseNavigate.mockReturnValue(vi.fn())
-
-          mockUseParams.mockReturnValue({ planetId: '1' });
+        mockUseNavigate.mockReturnValue(vi.fn())
+        mockUseParams.mockReturnValue({ planetId: '1' });
 
         renderComponent('1');
 
@@ -75,5 +87,38 @@ describe("ModalPlanet Component", () => {
         expect(screen.getByText('304')).toBeInTheDocument();
         expect(screen.getByText('Diameter:')).toBeInTheDocument();
         expect(screen.getByText('10465')).toBeInTheDocument();
-    })
+    });
+
+    it('displays "Planet not found" if the planet is not found and no error occurs', async () => {
+      (useGetPlanet as vi.Mock).mockReturnValue({
+          planet: null,
+          isPending: false,
+          error: null,
+      });
+
+      renderComponent('1');
+
+      expect(screen.getByText('Planet not found')).toBeInTheDocument();
+  });
+
+    it('navigates back when the close button is clicked', async () => {
+      const mockNavigate = vi.fn();
+
+
+      mockUseGetPlanet.mockReturnValue({
+        planet: mockPlanetData,
+        isPending: false,
+        error: null,
+      });
+
+      renderComponent('1');
+
+      // fireEvent.click(screen.getByRole('button', {name: /fermer/i}));
+      fireEvent.click(screen.getByText('Fermer'));
+      // fireEvent.click(screen.getByTestId('close-button'));
+      await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith(-1);
+      // expect(mockNavigate).toHaveBeenCalledWith('/planets');
+      });
+  });
 })

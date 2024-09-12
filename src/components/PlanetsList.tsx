@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { useGetPlanets } from "../hooks/useGetPlanets";
 import Planet from "./Planet";
-import { Skeleton } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
+import { pictures } from '../assets/data';
+import { Planet as PlanetType } from '../types/planets';
 
 const PlanetsList: React.FC = () => {
 
@@ -15,9 +17,19 @@ const PlanetsList: React.FC = () => {
         return <p>No results</p>
     }
 
-    const planetsList = data.results.map((planet) => {
+    const planetsWithPictures = data.results.map(planet => {
+        const matchedPicture = pictures.find((picture)=> picture.name === planet.name);
+        const p: PlanetType = {
+            ...planet,
+            picture: matchedPicture?.picture
+          }
+        return p;
+      });
+
+
+    const planetsList = planetsWithPictures.map((planet) => {
         return (
-            <div key={planet.url} style={{ height: `150px` }}>
+            <div key={planet.url} style={{ height: `300px` }}>
                 <Planet planet={planet} />
             </div>
         );
@@ -25,6 +37,7 @@ const PlanetsList: React.FC = () => {
 
     return (
         <>
+            <Typography variant="h3" component="div" sx={{ mb: 5, mt: 5 }}>Planet list</Typography>
             <Masonry columns={3} spacing={8}>
                 {planetsList}
             </Masonry>

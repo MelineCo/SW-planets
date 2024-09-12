@@ -13,4 +13,5 @@ export interface Planet {
     created: string
     edited: string
     url: string
+    picture?: string
 }
