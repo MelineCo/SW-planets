@@ -7,7 +7,7 @@ const PlanetsList: React.FC = () => {
 
     const { data, isPending, error } = useGetPlanets();
 
-    if (isPending) return <Skeleton animation="wave" variant="rectangular" width={210} height={118} />;
+    if (isPending) return <Skeleton data-testid="skeleton" animation="wave" variant="rectangular" width={210} height={118} />;
     if (error) return <p>Error: {error.message}</p>;
 
     if (!data.results.length) {
