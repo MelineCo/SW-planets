@@ -3,12 +3,10 @@ import { describe, it, expect } from 'vitest';
 import { ModalPlanetSkeleton } from '../ModalPlanetSkeleton';
 import '@testing-library/jest-dom';
 
-// Test l'affichage des labels + nombre de skeletons + style des skeletons
-
 describe('ModalPlanetSkeleton', () => {
-    it('renders the Skeleton components for each label', () => {
+    it('renders 5 Skeleton components for each label', () => {
         render(<ModalPlanetSkeleton />);
-        
+
         expect(screen.getByText('Planet:')).toBeInTheDocument();
         expect(screen.getByText('Climate:')).toBeInTheDocument();
         expect(screen.getByText('Population:')).toBeInTheDocument();
