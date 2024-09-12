@@ -6,8 +6,7 @@ import Masonry from '@mui/lab/Masonry';
 import { pictures } from '../assets/data';
 import { Planet as PlanetType } from '../types/planets';
 import { useNavigate } from "react-router-dom";
-
-type ContextType = {handleGoBack : () => void}
+import { ContextType } from '../types/context';
 
 const PlanetsList: React.FC = () => {
     const navigate = useNavigate();

@@ -11,14 +11,10 @@ import {
 } from '@mui/material';
 import { ModalPlanetSkeleton } from './ModalPlanetSkeleton';
 import { useOutletContext } from 'react-router-dom';
-
-type ContextType = {
-    handleGoBack: () => void;
-  };
+import { ContextType } from '../types/context';
 
 const ModalPlanet: FC = () => {
     const { planetId } = useParams();
-    // const { handleGoBack } = useGoBack();
     const { handleGoBack } = useOutletContext<ContextType>();
 
 
