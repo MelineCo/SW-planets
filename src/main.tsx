@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, FC } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -8,6 +8,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import PlanetDetails from "./components/PlanetDetails";
 import ModalPlanet from './components/ModalPlanet.tsx';
 import PlanetsList from './components/PlanetsList.tsx';
+
+// import {useNavigate } from 'react-router-dom';
+
+//  const PlanetDetailsModule:FC = () => {
+
+//   const navigate = useNavigate();
+
+//   const handleGoBack = () => {
+//     navigate('/planets');
+//   }
+
+//   return (
+//     <ModalPlanet handleGoBack={handleGoBack}/>
+//   )
+// }
 
 const queryClient = new QueryClient();
 

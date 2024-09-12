@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useGetPlanet } from '../hooks/useGetPlanet';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
     Alert,
     Box,
@@ -10,10 +10,18 @@ import {
     Typography
 } from '@mui/material';
 import { ModalPlanetSkeleton } from './ModalPlanetSkeleton';
+import { useGoBack } from './PlanetsList';
+import { useOutletContext } from 'react-router-dom';
+
+type ContextType = {
+    handleGoBack: () => void;
+  };
 
 const ModalPlanet: FC = () => {
     const { planetId } = useParams();
-    const navigate = useNavigate();
+    // const { handleGoBack } = useGoBack();
+    const { handleGoBack } = useOutletContext<ContextType>();
+
 
     const { planet, isPending, error } = useGetPlanet(planetId);
 
@@ -36,7 +44,7 @@ const ModalPlanet: FC = () => {
                     data-testid="close-button"
                     variant={'outlined'}
                     color="info"
-                    onClick={() => navigate(-1)}
+                    onClick={() => handleGoBack()}
                 >
                     Fermer
                 </Button>
@@ -100,7 +108,7 @@ const ModalPlanet: FC = () => {
         >
             {DrawerHeader}
 
-            {isPending && !error && <ModalPlanetSkeleton />}
+            {isPending && !error && <ModalPlanetSkeleton/>}
 
             {!isPending && error && (
                 <Box data-testid="planets-error">

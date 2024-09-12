@@ -1,6 +1,6 @@
-import { useGetPlanet } from '../hooks/useGetPlanet';
+import { useGetPlanet } from '../../hooks/useGetPlanet';
 import { useParams } from "react-router-dom";
-import Planet from './Planet';
+import Planet from '../Planet';
 import Typography from '@mui/material/Typography';
 
 const PlanetDetails: React.FC = () => {
