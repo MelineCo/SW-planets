@@ -14,7 +14,7 @@ const Planet: React.FC<PlanetProps> = ({ planet, children }) => {
 
     return (
         <Link to={`/planets/${planetId}`}>
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minWidth: 275, height: 150 }}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Planet: {planet.name}

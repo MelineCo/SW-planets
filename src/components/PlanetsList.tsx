@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useGetPlanets } from "../hooks/useGetPlanets";
 import Planet from "./Planet";
 import { Skeleton } from '@mui/material';
+import Masonry from '@mui/lab/Masonry';
 
 const PlanetsList: React.FC = () => {
 
@@ -16,13 +17,17 @@ const PlanetsList: React.FC = () => {
 
     const planetsList = data.results.map((planet) => {
         return (
-                <Planet key={planet.url} planet={planet} />
-        )
+            <div key={planet.url} style={{ height: `150px` }}>
+                <Planet planet={planet} />
+            </div>
+        );
     })
 
     return (
         <>
-            {planetsList}
+            <Masonry columns={3} spacing={8}>
+                {planetsList}
+            </Masonry>
             <Outlet />
         </>
     )
