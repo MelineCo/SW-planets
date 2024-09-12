@@ -6,7 +6,6 @@ import Masonry from '@mui/lab/Masonry';
 import { pictures } from '../assets/data';
 import { Planet as PlanetType } from '../types/planets';
 import { useNavigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
 
 type ContextType = {handleGoBack : () => void}
 
@@ -54,7 +53,5 @@ const PlanetsList: React.FC = () => {
         </>
     )
 }
-
-export const useGoBack = () => useOutletContext<ContextType>();
 
 export default PlanetsList;

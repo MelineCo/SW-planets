@@ -10,7 +10,6 @@ import {
     Typography
 } from '@mui/material';
 import { ModalPlanetSkeleton } from './ModalPlanetSkeleton';
-import { useGoBack } from './PlanetsList';
 import { useOutletContext } from 'react-router-dom';
 
 type ContextType = {
