@@ -10,6 +10,7 @@ export const ModalPlanetSkeleton: FC = () => (
             >
                 <Typography>Planet:</Typography>
                 <Skeleton
+                    data-testid="skeleton" 
                     width={100}
                     height={30}
                 />
@@ -20,6 +21,7 @@ export const ModalPlanetSkeleton: FC = () => (
             >
                 <Typography>Climate:</Typography>
                 <Skeleton
+                    data-testid="skeleton" 
                     width={100}
                     height={30}
                 />
@@ -30,6 +32,7 @@ export const ModalPlanetSkeleton: FC = () => (
             >
                 <Typography>Population:</Typography>
                 <Skeleton
+                    data-testid="skeleton" 
                     width={100}
                     height={30}
                 />
@@ -40,6 +43,7 @@ export const ModalPlanetSkeleton: FC = () => (
             >
                 <Typography>Orbital period:</Typography>
                 <Skeleton
+                    data-testid="skeleton" 
                     width={100}
                     height={30}
                 />
@@ -50,6 +54,7 @@ export const ModalPlanetSkeleton: FC = () => (
             >
                 <Typography>Diameter:</Typography>
                 <Skeleton
+                    data-testid="skeleton" 
                     width={100}
                     height={30}
                 />
