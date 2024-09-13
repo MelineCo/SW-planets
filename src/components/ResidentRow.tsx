@@ -74,7 +74,11 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
 
     return (
       <>
-        {isPending && !error && <ResidentRowSkeleton/>}
+        {isPending && !error && (
+          <Box data-testid="skeleton">
+              <ResidentRowSkeleton />
+          </Box>
+        )}
 
         {!isPending && error && (
             <Box data-testid="resident-error">

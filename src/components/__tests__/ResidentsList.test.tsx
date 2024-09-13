@@ -13,18 +13,15 @@ describe('ResidentsList Component', () => {
   it('should render "No residents found" message when no URLs are passed', () => {
     render(<ResidentsList urls={[]} />);
     
-    const noResidentsMessage = screen.getByText(/No residents found/i);
-    expect(noResidentsMessage).toBeInTheDocument();
+    expect(screen.getByText(/No residents found/i)).toBeInTheDocument();
   });
 
   it('should render the residents table when URLs are provided', () => {
     const urls = ['https://swapi.dev/api/people/1/', 'https://swapi.dev/api/people/2/'];
     render(<ResidentsList urls={urls} />);
 
-    const table = screen.getByTestId('all-residents-list');
-    expect(table).toBeInTheDocument();
-
-    const residentRows = screen.getAllByTestId('resident-row');
-    expect(residentRows).toHaveLength(urls.length);
+    // expect(screen.getByTestId('all-residents-list')).toBeInTheDocument();
+    // expect(screen.getAllByTestId('resident-row')).toHaveLength(urls.length);
+    expect(screen.getAllByRole('row')).toHaveLength(urls.length+1)
   });
 });

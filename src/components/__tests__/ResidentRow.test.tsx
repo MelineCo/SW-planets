@@ -4,9 +4,6 @@ import { ResidentRow } from '../ResidentRow';
 import { useGetResident } from '../../hooks/useGetResident';
 
 vi.mock('../../hooks/useGetResident');
-vi.mock('../ResidentRowSkeleton', () => ({
-  ResidentRowSkeleton: () => <div data-testid="skeleton" />
-}));
 
 describe('ResidentRow Component', () => {
   const mockResidentData = {
@@ -27,8 +24,7 @@ describe('ResidentRow Component', () => {
 
     render(<ResidentRow url="https://swapi.dev/api/people/1/" />);
 
-    const skeleton = screen.getByTestId('skeleton');
-    expect(skeleton).toBeInTheDocument();
+    expect(screen.getByTestId('skeleton')).toBeInTheDocument();
   });
 
   it('should display an error message if there is an error', () => {
@@ -40,8 +36,7 @@ describe('ResidentRow Component', () => {
 
     render(<ResidentRow url="https://swapi.dev/api/people/1/" />);
 
-    const errorMessage = screen.getByText(/Failed to fetch resident/i);
-    expect(errorMessage).toBeInTheDocument();
+    expect(screen.getByText(/Failed to fetch resident/i)).toBeInTheDocument();
   });
 
   it('should render resident data when available', () => {
@@ -56,10 +51,8 @@ describe('ResidentRow Component', () => {
     const residentName = screen.getByText('Luke Skywalker');
     expect(residentName).toBeInTheDocument();
 
-    const gender = screen.getByText('male');
-    const birthYear = screen.getByText('19BBY');
-    expect(gender).toBeInTheDocument();
-    expect(birthYear).toBeInTheDocument();
+    expect(screen.getByText('male')).toBeInTheDocument();
+    expect(screen.getByText('19BBY')).toBeInTheDocument();
   });
 
   it('should open modal with resident details on row click', async () => {
@@ -74,13 +67,8 @@ describe('ResidentRow Component', () => {
     const residentRow = screen.getByText('Luke Skywalker');
     fireEvent.click(residentRow);
 
-    await waitFor(() => {
-      const modalTitle = screen.getByText('Resident details');
-      expect(modalTitle).toBeInTheDocument();
-    });
-
-    const residentDetails = screen.getByText('Birth year : 19BBY');
-    expect(residentDetails).toBeInTheDocument();
+    expect(screen.getByText('Resident details')).toBeInTheDocument();
+    expect(screen.getByText('Birth year : 19BBY')).toBeInTheDocument();
   });
 
   it('should close the modal when the "Fermer" button is clicked', async () => {
@@ -92,20 +80,14 @@ describe('ResidentRow Component', () => {
 
     render(<ResidentRow url="https://swapi.dev/api/people/1/" />);
 
-    const residentRow = screen.getByText('Luke Skywalker');
-    fireEvent.click(residentRow);
+    fireEvent.click(screen.getByText('Luke Skywalker'));
+
+    expect(screen.getByText('Resident details')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Fermer'));
 
     await waitFor(() => {
-      const modalTitle = screen.getByText('Resident details');
-      expect(modalTitle).toBeInTheDocument();
-    });
-
-    const closeButton = screen.getByText('Fermer');
-    fireEvent.click(closeButton);
-
-    await waitFor(() => {
-      const modalTitle = screen.queryByText('Resident details');
-      expect(modalTitle).not.toBeInTheDocument();
+      expect(screen.queryByText('Resident details')).not.toBeInTheDocument();
     });
   });
 });
