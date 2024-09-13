@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import PlanetsList from "../PlanetsList";
 import { MemoryRouter } from 'react-router-dom';
 import { useGetPlanets } from "../../hooks/useGetPlanets";
@@ -16,8 +16,8 @@ describe("PlanetsList Component", () => {
     </MemoryRouter>);
 
   it("shows a skeleton while fetching data", () => {
-    (useGetPlanets as vi.Mock).mockReturnValue({
-      data: { results: [] },
+    (useGetPlanets as Mock).mockReturnValue({
+      data: undefined,
       isPending: true,
       error: null,
     });
@@ -27,8 +27,8 @@ describe("PlanetsList Component", () => {
   });
 
   it("displays error message if fetching fails", async () => {
-    (useGetPlanets as vi.Mock).mockReturnValue({
-      data: { results: [] },
+    (useGetPlanets as Mock).mockReturnValue({
+      data: undefined,
       isPending: false,
       error: new Error('Message d\'erreur'),
     });
@@ -92,7 +92,7 @@ describe("PlanetsList Component", () => {
         },
       ];
 
-    (useGetPlanets as vi.Mock).mockReturnValue({
+    (useGetPlanets as Mock).mockReturnValue({
       data: { "results": mockPlanets },
       isPending: false,
       error: null,
@@ -116,7 +116,7 @@ describe("PlanetsList Component", () => {
   });
 
   it('displays "No results" message when there are no planets', async () => {
-    (useGetPlanets as vi.Mock).mockReturnValue({
+    (useGetPlanets as Mock).mockReturnValue({
       data: { results: [] },
       isPending: false,
       error: null,
