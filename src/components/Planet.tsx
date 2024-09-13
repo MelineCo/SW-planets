@@ -19,9 +19,11 @@ const Planet: React.FC<PlanetProps> = ({ planet, children }) => {
                 height: 300,
              }}>
                 <CardMedia
+                    component="img"
                     sx={{ height: 190 }}
                     image={planet.picture}
-                    title={planet.name}
+                    title= {`Planet ${planet.name}`}
+                    alt= {`${planet.name} picture`}
                 />
                 <CardContent>
                     <Typography variant="h5" component="div">

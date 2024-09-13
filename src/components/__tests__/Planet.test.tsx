@@ -58,6 +58,14 @@ describe('Planet Component', () => {
         expect(screen.getByText('Population: 200000')).toBeInTheDocument();
     });
 
+    it('renders media picture correctly', () => {
+        renderComponent();
+
+        const image = screen.getByRole('img');
+        expect(image).toHaveStyle({ height: '190px' });
+        expect(image).toHaveAttribute('alt', 'Tatooine picture');
+    })
+
     it('renders the correct link to the planet page', () => {
         renderComponent();
 

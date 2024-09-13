@@ -53,7 +53,10 @@ describe("ModalPlanet Component", () => {
       render(<ModalPlanet />);
 
       // expect(screen.getByTestId('planets-error')).toBeInTheDocument();
-        // expect(screen.getByText('Unknown error from devtools')).toBeInTheDocument();
+      // expect(screen.getByText(/Unknown error from devtools/i)).toBeInTheDocument();
+      const alert = screen.getByRole('alert'); // Utiliser getByRole pour cibler l'alerte
+      expect(alert).toBeInTheDocument();
+      expect(alert).toHaveTextContent('An error occurred'); 
   });
 
     it("should display planet details when data is fetched successfully", () => {
