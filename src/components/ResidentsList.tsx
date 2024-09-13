@@ -7,7 +7,7 @@ interface ResidentsListProps {
 
 const ResidentsList: React.FC<ResidentsListProps> = ({urls}) => {
 
-    if (!urls.length) {
+    if (!urls?.length) {
         return <p style={{ marginTop: 36, fontStyle: "italic", color: 'grey' }}>No residents found</p>
     }
 
