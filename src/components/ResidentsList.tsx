@@ -1,7 +1,6 @@
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { ResidentRow } from "./ResidentRow";
 
-
 interface ResidentsListProps {
     urls: string[];
 }

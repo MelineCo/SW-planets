@@ -1,24 +1,32 @@
 import { FC } from 'react';
-import { Link, Box, Alert, TableCell, TableRow } from '@mui/material';
+import { Box, Alert, TableCell, TableRow, Modal, Typography, Button } from '@mui/material';
 import { useGetResident } from '../hooks/useGetResident';
 import { ResidentRowSkeleton } from './ResidentRowSkeleton';
-
+import { useState } from 'react';
 
 interface ResidentRowProps {
   url: string;
 }
 
 export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
+    const [open, setOpen] = useState(false);
+    
+    const handleRowClick = () => {
+      console.log('Row clicked!');
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const { resident, isPending, error } = useGetResident( url );
-
-    console.log(resident)
 
     const found = (
       <TableRow
         key={resident?.name}
         hover
-        onClick={() => {}}
+        onClick={handleRowClick}
       >
         <TableCell
           component="td"
@@ -74,6 +82,29 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
       </TableRow>
     )
 
+    const modalResident = (
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', width: 200, transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+          {resident ? (
+            <div>
+              <Typography variant="h6">Resident details</Typography>
+              <Typography>Name : {resident.name}</Typography>
+              <Typography>Gender : {resident.gender}</Typography>
+              <Typography>Birth year : {resident.birth_year}</Typography>
+              <Typography>Height : {resident.height}</Typography>
+              <Typography>Mass : {resident.mass}</Typography>
+              <Typography>Hair color : {resident.hair_color}</Typography>
+              <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
+                Fermer
+              </Button>
+            </div>
+          ) : (
+            <Typography>Loading...</Typography>
+          )}
+        </Box>
+      </Modal>
+    )
+
     return (
       <>
         {isPending && !error && <ResidentRowSkeleton/>}
@@ -89,6 +120,8 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
         {!isPending && !error && resident && found}
 
         {!resident && !isPending && notFound}
+
+        {modalResident}
       </>
       
     )
