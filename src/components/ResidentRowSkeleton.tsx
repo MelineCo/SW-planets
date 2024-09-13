@@ -20,5 +20,3 @@ export const ResidentRowSkeleton: FC = () => (
     </TableCell>
   </TableRow>
 );
-
-// ResidentRowSkeleton.displayName = 'DocumentListByTypeRowSkeleton';
