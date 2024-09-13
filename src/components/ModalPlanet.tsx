@@ -12,6 +12,7 @@ import {
 import { ModalPlanetSkeleton } from './ModalPlanetSkeleton';
 import { useOutletContext } from 'react-router-dom';
 import { ContextType } from '../types/context';
+import ResidentsList from './ResidentsList';
 
 const ModalPlanet: FC = () => {
     const { planetId } = useParams();
@@ -109,7 +110,10 @@ const ModalPlanet: FC = () => {
             )}
 
             {!isPending && !error && planet && DrawerList}
+            {!isPending && !error && planet && <ResidentsList urls={planet.residents} />}
+
             {!planet && !isPending && <p>Planet not found</p>}
+
         </Drawer>
     )
 }
