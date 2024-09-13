@@ -1,7 +1,7 @@
 import ModalPlanet from '../ModalPlanet';
 import { useGetPlanet } from '../../hooks/useGetPlanet';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { vi, describe, it, expect  } from 'vitest';
+import { vi, describe, it, expect, Mock  } from 'vitest';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 
 vi.mock('../../hooks/useGetPlanet', () => ({
@@ -21,7 +21,7 @@ describe("ModalPlanet Component", () => {
     
     // Simuler le context
     const mockHandleGoBack = vi.fn();
-    (useOutletContext as vi.Mock).mockReturnValue({ handleGoBack: mockHandleGoBack });
+    (useOutletContext as Mock).mockReturnValue({ handleGoBack: mockHandleGoBack });
 
     const mockPlanetData = {
       name: 'Tatooine',
@@ -32,7 +32,7 @@ describe("ModalPlanet Component", () => {
   };
 
     it('shows skeleton when data is pending', () => {
-        (useGetPlanet as vi.Mock).mockReturnValue({
+        (useGetPlanet as Mock).mockReturnValue({
             planet: null,
             isPending: true,
             error: null,
@@ -44,7 +44,7 @@ describe("ModalPlanet Component", () => {
     });
 
     it('displays error message if fetching fails', async () => {
-      (useGetPlanet as vi.Mock).mockReturnValue({
+      (useGetPlanet as Mock).mockReturnValue({
           planet: null,
           isPending: false,
           error: new Error('Unknown error from devtools'),
@@ -81,7 +81,7 @@ describe("ModalPlanet Component", () => {
     });
 
     it('displays "Planet not found" if the planet is not found and no error occurs', async () => {
-      (useGetPlanet as vi.Mock).mockReturnValue({
+      (useGetPlanet as Mock).mockReturnValue({
           planet: null,
           isPending: false,
           error: null,

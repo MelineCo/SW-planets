@@ -20,7 +20,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["vitest/globals"]
+    // "types": ["vitest/globals"]
+    "types": ["node", "vite/client", "vitest/globals"],
   },
   "include": ["src", "setupTests.ts", "/*.ts", "/*.tsx",]
 }
