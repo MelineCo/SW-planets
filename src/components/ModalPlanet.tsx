@@ -17,12 +17,7 @@ const ModalPlanet: FC = () => {
     const { planetId } = useParams();
     const { handleGoBack } = useOutletContext<ContextType>();
 
-
     const { planet, isPending, error } = useGetPlanet(planetId);
-
-    if (!planet && !isPending) {
-        return <p>Planet not found</p>
-    }
 
     const DrawerHeader = (
         <Box
@@ -114,6 +109,7 @@ const ModalPlanet: FC = () => {
             )}
 
             {!isPending && !error && planet && DrawerList}
+            {!planet && !isPending && <p>Planet not found</p>}
         </Drawer>
     )
 }
