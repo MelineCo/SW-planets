@@ -84,9 +84,12 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
             </Box>
         )}
 
-        {!isPending && !error && resident && residentRow}
-
-        {modalResident}
+        {!isPending && !error && resident && (
+          <>
+            {residentRow}
+            {modalResident}
+          </>
+        )}
       </>
       
     )
