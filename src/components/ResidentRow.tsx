@@ -12,7 +12,6 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
     const [open, setOpen] = useState(false);
     
     const handleRowClick = () => {
-      console.log('Row clicked!');
       setOpen(true);
     };
   
@@ -22,7 +21,7 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
 
     const { resident, isPending, error } = useGetResident( url );
 
-    const found = (
+    const residentRow = (
       <TableRow
         key={resident?.name}
         hover
@@ -52,40 +51,10 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
       </TableRow>
     )
 
-    const notFound = (
-      <TableRow
-        key={resident?.name}
-        hover
-        onClick={() => {}}
-      >
-        <TableCell
-          component="td"
-          scope="row"
-          width="25%"
-        >
-          -
-        </TableCell>
-        <TableCell
-          component="td"
-          scope="row"
-          width="25%"
-        >
-          -
-        </TableCell>
-        <TableCell
-          component="td"
-          scope="row"
-          width="25%"
-        >
-          -
-        </TableCell>
-      </TableRow>
-    )
-
     const modalResident = (
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ position: 'absolute', top: '50%', left: '50%', width: 200, transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-          {resident ? (
+          {resident && (
             <div>
               <Typography variant="h6">Resident details</Typography>
               <Typography>Name : {resident.name}</Typography>
@@ -98,8 +67,6 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
                 Fermer
               </Button>
             </div>
-          ) : (
-            <Typography>Loading...</Typography>
           )}
         </Box>
       </Modal>
@@ -117,9 +84,7 @@ export const ResidentRow: FC<ResidentRowProps> = ({ url }) => {
             </Box>
         )}
 
-        {!isPending && !error && resident && found}
-
-        {!resident && !isPending && notFound}
+        {!isPending && !error && resident && residentRow}
 
         {modalResident}
       </>
