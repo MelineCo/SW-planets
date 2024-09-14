@@ -1,15 +1,13 @@
-import { useState, useEffect, memo } from 'react';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import { useTimer } from '../hooks/useTimer';
-import { Item as ItemType } from '../types/item';
+import { useTimer } from '../../hooks/useTimer';
+import { Item as ItemType } from '../../types/item';
 
 interface ItemProps extends ItemType{}
 
-const Item: React.FC<ItemProps> = memo(({ item, price, expirationDate }) => {
+const Item: React.FC<ItemProps> = ({ item, price, expirationDate }) => {
 
     const {days, hours, minutes, seconds} = useTimer(expirationDate)
 
@@ -28,6 +26,6 @@ const Item: React.FC<ItemProps> = memo(({ item, price, expirationDate }) => {
             </CardContent>
         </Card>
     )
-})
+}
 
 export default Item;
